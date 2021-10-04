@@ -908,6 +908,7 @@ MonoBehaviour:
   spawnPosition: {x: -1, y: 8, z: 0}
   previewPosition: {x: 7, y: 7, z: 0}
   scoreText: {fileID: 1090786457}
+  bestScoreText: {fileID: 5964856}
 --- !u!114 &700974347
 MonoBehaviour:
   m_ObjectHideFlags: 0
