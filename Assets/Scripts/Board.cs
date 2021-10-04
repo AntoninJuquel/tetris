@@ -12,7 +12,7 @@ public class Board : MonoBehaviour
     public Vector2Int boardSize = new Vector2Int(10, 20);
     [SerializeField] private TetrominoData[] tetrominoes;
     [SerializeField] private Vector3Int spawnPosition, previewPosition;
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText, bestScoreText;
     private TetrominoData _currentPiece, _nextPiece;
     private int _score;
 
@@ -36,6 +36,8 @@ public class Board : MonoBehaviour
         {
             tetrominoes[i].Initialize();
         }
+
+        bestScoreText.text = "BEST\n" + PlayerPrefs.GetInt("BEST", 0).ToString("00000");
     }
 
     private void Start()
@@ -81,6 +83,8 @@ public class Board : MonoBehaviour
 
     private void GameOver()
     {
+        if (_score > PlayerPrefs.GetInt("BEST", 0))
+            PlayerPrefs.SetInt("BEST", _score);
         SceneManager.LoadScene("Tetris");
     }
 
@@ -149,7 +153,7 @@ public class Board : MonoBehaviour
             var position = new Vector3Int(col, row, 0);
             Tilemap.SetTile(position, null);
             _score += 10;
-            scoreText.text = _score.ToString("00000");
+            scoreText.text = "SCORE\n" + _score.ToString("00000");
         }
 
         while (row < Bounds.yMax)
